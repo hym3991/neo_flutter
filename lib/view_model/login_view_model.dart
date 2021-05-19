@@ -5,13 +5,13 @@ class LoginViewModel extends ChangeNotifier{
   User _user;
   User get user => _user;
   set user(User value){
-    user = value;
+    _user = value;
     notifyListeners();
   }
 
   LoginViewModel(){
     ///构造时进行请求登录
-    login();
+    //login();
   }
 
   void login(){
