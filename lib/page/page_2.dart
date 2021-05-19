@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:neo_flutter/page/page_1.dart';
+import 'package:neo_flutter/page/page_other.dart';
 import 'package:neo_flutter/view_model/count_down_view_model.dart';
 import 'package:neo_flutter/view_model/login_view_model.dart';
 import 'package:neo_flutter/view_model/page_view_model.dart';
@@ -37,6 +38,7 @@ class NeoPage2MainWidget extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     print('NeoPage2MainWidget build');
+    ///还有没有更好的办法 结合2个ChangeNotifierProvider但是还存在依赖关系ProxyProvider
     return ChangeNotifierProvider(
       create: (_) => CountDownViewModel(awayFromEnd: Provider.of<PageViewModel>(context).bean.awayFromEnd),
       builder: (_,Widget child){
@@ -73,18 +75,27 @@ class NeoPage2MainWidget extends StatelessWidget{
                   UserWidget(user: model.user);
                 },
               ),
-              ///不再需要输入倒计时时间了 但是可以显示下
+              ///不再需要输入倒计时时间了 但是可以显示
               Padding(padding: EdgeInsets.only(left: 20)),
               Text('倒计时时间是 ： ${Provider.of<PageViewModel>(context).bean.awayFromEnd}秒'),
               ///不可变的widget 不需要重新创建 有可能这个widget非常大 重复构造太耗时间了
               StoneWidget(),
+              ///如果我需要倒计时是否开始以及结束这2个状态呢
+              Selector<CountDownViewModel,bool>(
+                  selector: (_,CountDownViewModel model) => model.isLiveOrEnd,
+                  builder: (_,bool isLiveOrEnd,Widget child){
+                    print('TimerStatusWidget Selector builder');
+                    return TimerStatusWidget(isLiveOrEnd: isLiveOrEnd);
+                  },
+              ),
               ///跳转下一页 需要传递倒计时状态 登录后能跳转 这里要传递倒计时状态
               Consumer<CountDownViewModel>(
                 builder: (_,CountDownViewModel model,Widget child){
                   return RaisedButton(
                       onPressed: (){
                         if(Provider.of<LoginViewModel>(context,listen: false).user != null){
-                          Navigator.pushNamed(context, 'page_other',arguments: <String,dynamic>{'model' : model});
+                          ///跳转传递倒计时状态 问题是会造成在PageOther退出时关闭倒计时
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => PageOther(awayFromEnd: model.awayFromEnd)));
                         }else{
                           Fluttertoast.showToast(msg: '请先登录');
                         }
@@ -116,6 +127,24 @@ class EmptyWidget extends StatelessWidget {
       height: double.infinity,
       child: Center(
         child: Text('请求数据中...',style: TextStyle(fontSize: 35))
+      ),
+    );
+  }
+}
+
+class TimerStatusWidget extends StatelessWidget{
+  final bool isLiveOrEnd;
+  TimerStatusWidget({this.isLiveOrEnd});
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 100,
+      color: this.isLiveOrEnd?Colors.green:Colors.grey,
+      child: Center(
+        child: Text(this.isLiveOrEnd?'倒计时还在继续':'倒计时已经结束了',style: TextStyle(
+          fontSize: 30,
+          color: Colors.white
+        )),
       ),
     );
   }

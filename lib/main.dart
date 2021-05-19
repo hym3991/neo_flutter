@@ -12,6 +12,7 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    ///在最外层共享登录这个状态
     return ChangeNotifierProvider<LoginViewModel>(
       create: (_) => LoginViewModel(),
       builder:(_,Widget child) => MaterialApp(
@@ -20,9 +21,8 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.blue,
         ),
         routes: <String, WidgetBuilder>{
-          'page1' : (BuildContext context) =>  NeoPage(),
+          'page1' : (BuildContext context) => NeoPage(),
           'page2' : (BuildContext context) => NeoPage2(),
-          'page_other' : (BuildContext context,{arguments}) => PageOther(countDownViewModel: arguments['model']),
         },
         home: MyPage()
       ),

@@ -9,36 +9,48 @@ class CountDownViewModel extends ChangeNotifier{
   bool get isAlive => _isAlive;
   set isAlive(bool value){
     _isAlive = value;
+    isLiveOrEnd = _isAlive;
     notifyListeners();
+  }
+
+  bool _isLiveOrEnd;
+  bool get isLiveOrEnd => _isLiveOrEnd;
+  set isLiveOrEnd(bool value){
+    if(_isLiveOrEnd != value){
+      _isLiveOrEnd = value;
+      notifyListeners();
+    }
   }
 
   ///这样其实没必要notifyListeners
-  String _hour = '0';
-  String get hour => _hour;
-  set hour(String value){
-    _hour = value;
-    notifyListeners();
-  }
-
+  // String _hour = '0';
+  // String get hour => _hour;
+  // set hour(String value){
+  //   _hour = value;
+  //   notifyListeners();
+  // }
+  String hour = '0';
   ///这样其实没必要notifyListeners
-  String _minute = '0';
-  String get minute => _minute;
-  set minute(String value){
-    _minute = value;
-    notifyListeners();
-  }
-
+  //String _minute = '0';
+  // String get minute => _minute;
+  // set minute(String value){
+  //   _minute = value;
+  //   notifyListeners();
+  // }
+  String minute = '0';
   ///这样其实没必要notifyListeners
-  String _second = '0';
-  String get second => _second;
-  set second(String value){
-    _second = value;
-    notifyListeners();
-  }
-
+  //String _second = '0';
+  // String get second => _second;
+  // set second(String value){
+  //   _second = value;
+  //   notifyListeners();
+  // }
+  String second = '0';
   int awayFromEnd;
+
   CountDownViewModel({this.awayFromEnd}){
     _isAlive = false;
+    _isLiveOrEnd = false;
     if(awayFromEnd != null && awayFromEnd > 0){
       startTimer(awayFromEnd);
     }

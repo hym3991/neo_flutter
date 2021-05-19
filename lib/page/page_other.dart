@@ -6,8 +6,8 @@ import 'package:provider/provider.dart';
 
 class PageOther extends StatefulWidget {
 
-  final CountDownViewModel countDownViewModel;
-  PageOther({this.countDownViewModel});
+  final int awayFromEnd;
+  PageOther({this.awayFromEnd});
 
   @override
   _PageOtherState createState() => _PageOtherState();
@@ -16,9 +16,9 @@ class PageOther extends StatefulWidget {
 class _PageOtherState extends State<PageOther> {
   @override
   Widget build(BuildContext context) {
+
     return ChangeNotifierProvider<CountDownViewModel>(
-      lazy: false,
-      create: (_) => widget.countDownViewModel??CountDownViewModel(),
+      create: (_) => CountDownViewModel(awayFromEnd: widget.awayFromEnd),
       builder: (_,Widget child){
         return SafeArea(
             child: Scaffold(

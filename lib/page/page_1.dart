@@ -1,4 +1,3 @@
-import 'dart:ffi';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -43,9 +42,12 @@ class _NeoPageState extends State<NeoPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     ///登录状态也不要倒计时状态
+                    ///Provider.of<LoginViewModel>(context,listen: false)
+                    ///listen: false / true 表示是否在值发生比变化时进行通知 调用State.build方法 以及 State.didChangeDependencies方法
+                    ///从而造成页面重建
                     Row(
                       children: [
-                        Text('现在的登录状态是 ： ${Provider.of<LoginViewModel>(context).user == null?'未登录':'已登录'}'),
+                        Text('现在的登录状态是 ： ${Provider.of<LoginViewModel>(context,listen: false).user == null?'未登录':'已登录'}'),
                         Padding(padding: EdgeInsets.only(left: 20)),
                         Visibility(
                             visible: Provider.of<LoginViewModel>(context).user == null,
