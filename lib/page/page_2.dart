@@ -1,6 +1,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:neo_flutter/neo_provider/bid_model.dart';
+import 'package:neo_flutter/neo_provider/neo_inherited_provider.dart';
 import 'package:neo_flutter/page/page_1.dart';
 import 'package:neo_flutter/page/page_other.dart';
 import 'package:neo_flutter/view_model/count_down_view_model.dart';
@@ -14,6 +16,11 @@ class NeoPage2 extends StatefulWidget {
 }
 
 class _NeoPage2State extends State<NeoPage2> {
+
+  @override
+  void initState() {
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     print('_NeoPage2State build');
@@ -35,6 +42,7 @@ class _NeoPage2State extends State<NeoPage2> {
 }
 
 class NeoPage2MainWidget extends StatelessWidget{
+
   @override
   Widget build(BuildContext context) {
     print('NeoPage2MainWidget build');
@@ -111,6 +119,9 @@ class NeoPage2MainWidget extends StatelessWidget{
                   return Text(model.isAlive?'剩余 ${model.hour}小时 ${model.minute}分钟 ${model.second}秒':'倒计时结束了',style: TextStyle(fontSize: 30));
                 },
               ),
+
+              BidWidget()
+
             ],
           ),
         );
@@ -148,5 +159,75 @@ class TimerStatusWidget extends StatelessWidget{
       ),
     );
   }
+}
+
+class BidWidget extends StatelessWidget{
+  final TextEditingController bidController = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
+    return NeoChangeNotifierProvider<BidModel>(
+      data: BidModel(),
+      child: Builder(builder: (context){
+        return Container(
+            color: NeoChangeNotifierProvider.of<BidModel>(context).bidPrice==0?Colors.blue:Colors.grey,
+            width: double.infinity,
+            padding: EdgeInsets.symmetric(vertical: 30),
+            child: GestureDetector(
+              onTap: (){
+                if(NeoChangeNotifierProvider.of<BidModel>(context).bidPrice == 0){
+                  showDialog(
+                      context: context,
+                      barrierDismissible: false,
+                      builder: (BuildContext context1){
+                        return AlertDialog(
+                          title: Text('我要出价'),
+                          content: Container(
+                            child:  SizedBox(
+                              width: 150 ,
+                              child: TextField(
+                                controller: bidController,
+                                keyboardType: TextInputType.number,
+                                decoration: InputDecoration(
+                                  labelText: '请输入出价金额',
+                                  labelStyle: TextStyle(
+                                      color: Colors.blue,
+                                      fontSize: 15
+                                  ),
+                                  border: OutlineInputBorder(),
+                                ),
+                              ),
+                            ),
+                          ),
+                          actions: [
+                            FlatButton(onPressed: (){
+                              if(bidController.text != null && int.parse(bidController.text) > 0){
+                                Navigator.of(context).pop();
+                                NeoChangeNotifierProvider.of<BidModel>(context).bidPrice = int.parse(bidController.text);
+                              }
+                            }, child: Text('确定')),
+                            FlatButton(onPressed: (){
+                              Navigator.of(context).pop();
+                            }, child: Text('取消')),
+                          ],
+                        );
+                      }
+                  );
+                }
+              },
+              child: Center(
+                child: Text(
+                    NeoChangeNotifierProvider.of<BidModel>(context).bidPrice==0?
+                    '我要出价':
+                    '我的出价 ： ￥${NeoChangeNotifierProvider.of<BidModel>(context).bidPrice}元',
+                    style: TextStyle(color: Colors.white)
+                ),
+              ),
+            )
+        );
+      }),
+    );
+  }
+
 }
 
