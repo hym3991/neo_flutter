@@ -72,6 +72,13 @@ packages:
       url: "https://mirrors.cloud.tencent.com/dart-pub"
     source: hosted
     version: "7.1.8"
+  get_it:
+    dependency: transitive
+    description:
+      name: get_it
+      url: "https://mirrors.cloud.tencent.com/dart-pub"
+    source: hosted
+    version: "5.0.6"
   js:
     dependency: transitive
     description:
@@ -93,6 +100,13 @@ packages:
       url: "https://mirrors.cloud.tencent.com/dart-pub"
     source: hosted
     version: "1.3.0"
+  mvvm:
+    dependency: "direct main"
+    description:
+      name: mvvm
+      url: "https://mirrors.cloud.tencent.com/dart-pub"
+    source: hosted
+    version: "0.1.9"
   nested:
     dependency: transitive
     description:
@@ -100,6 +114,13 @@ packages:
       url: "https://mirrors.cloud.tencent.com/dart-pub"
     source: hosted
     version: "1.0.0"
+  observable_ish:
+    dependency: transitive
+    description:
+      name: observable_ish
+      url: "https://mirrors.cloud.tencent.com/dart-pub"
+    source: hosted
+    version: "2.1.5"
   path:
     dependency: transitive
     description:
@@ -133,6 +154,13 @@ packages:
       url: "https://mirrors.cloud.tencent.com/dart-pub"
     source: hosted
     version: "1.10.0"
+  stacked:
+    dependency: "direct main"
+    description:
+      name: stacked
+      url: "https://mirrors.cloud.tencent.com/dart-pub"
+    source: hosted
+    version: "1.9.5"
   stream_channel:
     dependency: transitive
     description:

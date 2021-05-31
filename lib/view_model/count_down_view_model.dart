@@ -1,8 +1,9 @@
 import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
+import 'package:neo_flutter/base/neo_base_provider_widget.dart';
 
-class CountDownViewModel extends ChangeNotifier{
+class CountDownViewModel extends BaseViewModel{
   Timer _timer;
 
   bool _isAlive;

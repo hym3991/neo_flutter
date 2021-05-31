@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
+import 'package:neo_flutter/base/neo_base_provider_widget.dart';
 import 'package:neo_flutter/bean/user_bean.dart';
 
-class LoginViewModel extends ChangeNotifier{
+class LoginViewModel extends BaseViewModel{
   User _user;
   User get user => _user;
   set user(User value){

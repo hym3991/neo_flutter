@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:neo_flutter/base/neo_base_provider_widget.dart';
 import 'package:neo_flutter/bean/user_bean.dart';
 import 'package:neo_flutter/view_model/count_down_view_model.dart';
 import 'package:neo_flutter/view_model/login_view_model.dart';
@@ -180,3 +181,18 @@ class UserWidget extends StatelessWidget {
 }
 
 
+class NeoPageNew extends BaseProviderFulWidget<CountDownViewModel>{
+
+  @override
+  State<StatefulWidget> initState() => NeoPageNewState();
+}
+
+class NeoPageNewState extends BaseProviderFulState<CountDownViewModel,NeoPageNew>{
+
+
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return super.build(context);
+  }
+}

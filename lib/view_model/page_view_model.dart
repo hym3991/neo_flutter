@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
+import 'package:neo_flutter/base/neo_base_provider_widget.dart';
 import 'package:neo_flutter/bean/page_bean.dart';
 
-class PageViewModel extends ChangeNotifier{
+class PageViewModel extends BaseViewModel{
   PageBean _bean;
   PageBean get bean => _bean;
   set bean(PageBean value){
