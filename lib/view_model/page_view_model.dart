@@ -16,6 +16,7 @@ class PageViewModel extends BaseViewModel{
   }
 
   void requestData(){
+    ///模拟请求页面数据
     Future.delayed(Duration(seconds: 2),(){
       bean = PageBean()..awayFromEnd = 5000..price = 10000..desc = '宝马汽车';
     });
